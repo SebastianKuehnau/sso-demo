@@ -67,36 +67,9 @@
         "attributes": {}
       },
       {
-        "id": "bc9acd98-0ca2-4ba7-a14e-7e468d00f52c",
-        "name": "admin",
-        "description": "",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "00153260-48d2-4c89-a1ce-c0c7ccc9711a",
-        "attributes": {}
-      },
-      {
-        "id": "29796d5b-3b6c-4741-83c2-c9e838c362bf",
-        "name": "uma_authorization",
-        "description": "${role_uma_authorization}",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "00153260-48d2-4c89-a1ce-c0c7ccc9711a",
-        "attributes": {}
-      },
-      {
         "id": "58a84307-c4b7-48be-bf31-cbf2e7f704ef",
         "name": "user",
         "description": "",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "00153260-48d2-4c89-a1ce-c0c7ccc9711a",
-        "attributes": {}
-      },
-      {
-        "id": "d2a6c9d2-b085-4b78-b6b8-21fbdf7cfb8d",
-        "name": "offline_access",
-        "description": "${role_offline-access}",
         "composite": false,
         "clientRole": false,
         "containerId": "00153260-48d2-4c89-a1ce-c0c7ccc9711a",
@@ -329,96 +302,8 @@
       "security-admin-console": [],
       "admin-cli": [],
       "account-console": [],
-      "broker": [
-        {
-          "id": "851615e8-cb42-4a27-8e5c-108001c1374c",
-          "name": "read-token",
-          "description": "${role_read-token}",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "e9793260-dd11-4bfb-96c7-11b24e600883",
-          "attributes": {}
-        }
-      ],
-      "account": [
-        {
-          "id": "e13cf28b-b021-4ba4-903d-692848d50dd7",
-          "name": "manage-account",
-          "description": "${role_manage-account}",
-          "composite": true,
-          "composites": {
-            "client": {
-              "account": [
-                "manage-account-links"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "615305ce-daad-41d7-9238-d80a2396febc",
-          "attributes": {}
-        },
-        {
-          "id": "dad2b0f8-eeac-4e9c-af9e-5d60a465987f",
-          "name": "view-applications",
-          "description": "${role_view-applications}",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "615305ce-daad-41d7-9238-d80a2396febc",
-          "attributes": {}
-        },
-        {
-          "id": "90e6af93-d71f-49c5-bfe5-4a3b20db7f29",
-          "name": "delete-account",
-          "description": "${role_delete-account}",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "615305ce-daad-41d7-9238-d80a2396febc",
-          "attributes": {}
-        },
-        {
-          "id": "c678987f-bc44-4d00-8c2e-2271647c2264",
-          "name": "manage-consent",
-          "description": "${role_manage-consent}",
-          "composite": true,
-          "composites": {
-            "client": {
-              "account": [
-                "view-consent"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "615305ce-daad-41d7-9238-d80a2396febc",
-          "attributes": {}
-        },
-        {
-          "id": "bb8cce7a-a80b-43a3-8ed6-1741f1a87731",
-          "name": "view-consent",
-          "description": "${role_view-consent}",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "615305ce-daad-41d7-9238-d80a2396febc",
-          "attributes": {}
-        },
-        {
-          "id": "c13dfe9e-ad38-4995-ad52-12361070c627",
-          "name": "view-profile",
-          "description": "${role_view-profile}",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "615305ce-daad-41d7-9238-d80a2396febc",
-          "attributes": {}
-        },
-        {
-          "id": "457a2f7c-2a85-45ec-93b5-43477e091af0",
-          "name": "manage-account-links",
-          "description": "${role_manage-account-links}",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "615305ce-daad-41d7-9238-d80a2396febc",
-          "attributes": {}
-        }
-      ]
+      "broker": [],
+      "account": []
     }
   },
   "groups": [],
@@ -539,61 +424,6 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": 0,
-      "defaultClientScopes": [
-        "web-origins",
-        "acr",
-        "roles",
-        "profile",
-        "email"
-      ],
-      "optionalClientScopes": [
-        "address",
-        "phone",
-        "offline_access",
-        "microprofile-jwt"
-      ]
-    },
-    {
-      "id": "d2ba0ab3-7bee-41c6-ab6f-30318573737d",
-      "clientId": "account-console",
-      "name": "${client_account-console}",
-      "rootUrl": "${authBaseUrl}",
-      "baseUrl": "/realms/myrealm/account/",
-      "surrogateAuthRequired": false,
-      "enabled": true,
-      "alwaysDisplayInConsole": false,
-      "clientAuthenticatorType": "client-secret",
-      "redirectUris": [
-        "/realms/myrealm/account/*"
-      ],
-      "webOrigins": [],
-      "notBefore": 0,
-      "bearerOnly": false,
-      "consentRequired": false,
-      "standardFlowEnabled": true,
-      "implicitFlowEnabled": false,
-      "directAccessGrantsEnabled": false,
-      "serviceAccountsEnabled": false,
-      "publicClient": true,
-      "frontchannelLogout": false,
-      "protocol": "openid-connect",
-      "attributes": {
-        "post.logout.redirect.uris": "+",
-        "pkce.code.challenge.method": "S256"
-      },
-      "authenticationFlowBindingOverrides": {},
-      "fullScopeAllowed": false,
-      "nodeReRegistrationTimeout": 0,
-      "protocolMappers": [
-        {
-          "id": "4e9d9e0a-75c3-411e-8b98-fe6aec1798ce",
-          "name": "audience resolve",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-audience-resolve-mapper",
-          "consentRequired": false,
-          "config": {}
-        }
-      ],
       "defaultClientScopes": [
         "web-origins",
         "acr",
