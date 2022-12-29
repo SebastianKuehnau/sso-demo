@@ -10,7 +10,7 @@ services:
       - --import-realm
       - --log-level=INFO
     volumes:
-      - ./import/realm.json:/opt/keycloak/data/import/keycloak/realm.json
+      - ./import/myrealm-realm.json:/opt/keycloak/data/import/myrealm-realm.json
     ports:
       - "9000:8080"
     container_name: sso-demo-keycloak
