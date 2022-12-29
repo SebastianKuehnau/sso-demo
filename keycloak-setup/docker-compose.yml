@@ -1,42 +1,16 @@
-version: "3.9"
-
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:19.0.3
+    image: quay.io/keycloak/keycloak:latest
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KEYCLOAK_IMPORT=/tmp/keycloak/myrealm-realm.json
-#      KEYCLOAK_EXTRA_ARGS: -Dkeycloak.profile.feature.upload_scripts=enabled
-      - JAVA_OPTS=-Dkeycloak.profile.feature.upload_scripts=enabled
-#      KC_HOSTNAME: localhost
-#      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt
-#      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key
-#      KC_DB_VENDOR: mariadb
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: localhost
+    command:
+      - start-dev
+      - --import-realm
+      - --log-level=INFO
     volumes:
-#      - ./certificates/aktenplan_keycloak_server.crt:/opt/keycloak/conf/server.crt
-#      - ./certificates/aktenplan_keycloak_server.key:/opt/keycloak/conf/server.key
-      - ./realm:/tmp/keycloak
-#    command: start --auto-build --db=mariadb --db-url=jdbc:mariadb://mariadb:3306/keycloak --db-username=keycloak --db-password=keycloakpw --import-realm --health-enabled=true
-    command: start-dev --import-realm --log-level=DEBUG
-#    healthcheck:
-#      test:
-#        [
-#          "CMD",
-#          "curl",
-#          "-kfsS",
-#          "https://localhost:8080/health/ready"
-#        ]
-#      interval: 20s
-#      timeout: 10s
-#      retries: 3
-#      start_period: 30s
+      - ./import/realm.json:/opt/keycloak/data/import/keycloak/realm.json
     ports:
-      - 9000:8080
-#      - 9001:8443
-#    networks:
-#      - local
-#    extra_hosts:
-#      - host.docker.internal:${WINDOWS_IP}
+      - "9000:8080"
     container_name: sso-demo-keycloak
-
