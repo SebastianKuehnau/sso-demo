@@ -7,8 +7,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
-import javax.annotation.security.PermitAll;
+import jakarta.annotation.security.PermitAll;
 
 @PageTitle("Main")
 @Route(value = "", layout = AbstractLayout.class)

@@ -8,12 +8,13 @@ import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouteData;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.spring.security.AuthenticationContext;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -47,12 +48,16 @@ public class AbstractLayout extends Div implements RouterLayout {
 
     private boolean hasPermission(RouteData routeData) {
 
-        return routeData.getNavigationTarget().isAnnotationPresent(PermitAll.class) ||
+        return (routeData.getNavigationTarget().isAnnotationPresent(PermitAll.class) ||
+                routeData.getNavigationTarget().isAnnotationPresent(AnonymousAllowed.class)) ||
                 Arrays.stream(routeData.getNavigationTarget().getAnnotation(RolesAllowed.class).value())
                         .anyMatch(this::matchRole);
     }
 
     private boolean matchRole(String role) {
+        if (!authenticationContext.getAuthenticatedUser(DefaultOidcUser.class).isPresent())
+            return false;
+
         DefaultOidcUser defaultOidcUser =
                 authenticationContext.getAuthenticatedUser(DefaultOidcUser.class).get();
         var grantedRoles = (Collection<String>) defaultOidcUser.getUserInfo()
