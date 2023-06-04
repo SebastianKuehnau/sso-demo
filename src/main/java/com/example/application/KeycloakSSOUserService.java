@@ -12,9 +12,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class KeycloakSSOUserService extends OidcUserService {
@@ -60,5 +58,13 @@ public class KeycloakSSOUserService extends OidcUserService {
         return roles.stream()
                 .map(role -> new OidcUserAuthority(ROLE_PREFIX + role, idToken, userInfo))
                 .toList();
+    }
+
+    public boolean matchRole(DefaultOidcUser defaultOidcUser, String role) {
+        String targetAuthority = ROLE_PREFIX + role;
+
+        return defaultOidcUser.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(targetAuthority::equals);
     }
 }

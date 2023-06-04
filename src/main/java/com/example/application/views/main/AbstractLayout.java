@@ -1,5 +1,6 @@
 package com.example.application.views.main;
 
+import com.example.application.KeycloakSSOUserService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
@@ -12,20 +13,19 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Optional;
 
 public class AbstractLayout extends Div implements RouterLayout {
-
-    public static final String AUTHORITY_PREFIX = "ROLE_";
     private final HorizontalLayout menuLayout = new HorizontalLayout();
     private final AuthenticationContext authenticationContext;
+    private final KeycloakSSOUserService keycloakSSOUserService;
 
-    public AbstractLayout(AuthenticationContext authenticationContext) {
+    public AbstractLayout(AuthenticationContext authenticationContext, KeycloakSSOUserService keycloakSSOUserService) {
         this.authenticationContext = authenticationContext;
+        this.keycloakSSOUserService = keycloakSSOUserService;
         add(menuLayout);
 
         RouteConfiguration.forApplicationScope()
@@ -55,15 +55,8 @@ public class AbstractLayout extends Div implements RouterLayout {
     }
 
     private boolean matchRole(String role) {
-        if (!authenticationContext.getAuthenticatedUser(DefaultOidcUser.class).isPresent())
-            return false;
+        Optional<DefaultOidcUser> authenticatedUser = authenticationContext.getAuthenticatedUser(DefaultOidcUser.class);
 
-        DefaultOidcUser defaultOidcUser =
-                authenticationContext.getAuthenticatedUser(DefaultOidcUser.class).get();
-        var grantedRoles = (Collection<String>) defaultOidcUser.getUserInfo()
-                .getClaimAsMap("realm_access")
-                .get("roles");
-        return grantedRoles.stream()
-                .anyMatch(grantedRole -> StringUtils.equals(grantedRole, role));
+        return authenticatedUser.map(user -> keycloakSSOUserService.matchRole(user, role)).orElse(false);
     }
 }

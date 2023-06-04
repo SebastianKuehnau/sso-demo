@@ -7,6 +7,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 
 @RolesAllowed({"admin"})
+
 @Route(value = "admin", layout = AbstractLayout.class)
 public class AdminView extends VerticalLayout {
 
