@@ -6,7 +6,8 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterListener;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
-import jakarta.annotation.security.RolesAllowed;
+
+import javax.annotation.security.RolesAllowed;
 
 
 @RolesAllowed({"admin"})
