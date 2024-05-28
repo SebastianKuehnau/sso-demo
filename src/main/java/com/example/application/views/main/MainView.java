@@ -9,6 +9,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
 
+
 @PageTitle("Main")
 @Route(value = "", layout = AbstractLayout.class)
 @PermitAll
